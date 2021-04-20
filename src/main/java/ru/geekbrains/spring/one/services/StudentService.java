@@ -37,5 +37,19 @@ public class StudentService {
     public double getAverageScore() {
         return studentRepository.findAll().stream().mapToInt(Student::getScore).average().getAsDouble();
     }
-    
+
+    public void incrementScore(Long id) {
+        Student student = studentRepository.findOneById(id).get();
+        if (student.getScore() < 100) {
+            student.setScore(student.getScore() + 1);
+        }
+    }
+
+    public void decrementScore(Long id) {
+        Student student = studentRepository.findOneById(id).get();
+        if (student.getScore() > 0) {
+            student.setScore(student.getScore() - 1);
+        }
+    }
+
 }
